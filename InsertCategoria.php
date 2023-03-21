@@ -20,7 +20,7 @@ $server->wsdl->addComplexType(
     );
 // Estructura de la respuesta del servicio 
 $server->wsdl->addComplexType(
-    'InsertCategoria',
+    'response',
     'complexType',
     'struct',
     'all',
