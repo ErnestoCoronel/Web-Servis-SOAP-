@@ -1,5 +1,6 @@
 <?php
 
+
 require_once "vendor/econea/nusoap/src/nusoap.php";
 $namespace = "InsertCategoriaSOAP";
 $server = new soap_server();
@@ -13,9 +14,9 @@ $server->wsdl->addComplexType(
     'all',
     '',
     array(
-        'usu_nom' => array('name' => 'usu_nom', 'type' => 'xsd:string '),
-        'usu_ape' => array('name' => 'usu_ape', 'type' => 'xsd:string '),
-        'usu_correo' => array('name' => 'usu_correo', 'type' => 'xsd:string '),
+        'usu_nom' => array('name' => 'usu_nom', 'type' => 'xsd:string'),
+        'usu_ape' => array('name' => 'usu_ape', 'type' => 'xsd:string'),
+        'usu_correo' => array('name' => 'usu_correo', 'type' => 'xsd:string'),
     )   
     );
 // Estructura de la respuesta del servicio 
@@ -31,7 +32,7 @@ $server->wsdl->addComplexType(
     );
 
 $server->register(
-    "InserCategoriaService",
+    "InsertCategoriaService",
     array("InsertCategoria" => "tns:InsertCategoria"),
     array("InsertCategoria" => "tns:response"),
     $namespace,
@@ -40,7 +41,14 @@ $server->register(
     "encoded",
     "Inserta una categoria",
 );
-function InsertCategoriaService(){
+function InsertCategoriaService($request){
+    require_once "config/conexion.php";
+    require_once "models/Usuario.php";
+
+    $usuario = new Usuario();
+    $usuario->insert_usuario($request["usu_nom"],$request["usu_ape"],$request["usu_correo"]);
+
+
     return array(
         "Resultado"=> true
     );
